@@ -1,5 +1,6 @@
 Robots.txt Generator for Laravel
 =========
+[![Build Status](https://travis-ci.org/jayhealey/Robots.svg?branch=master)](https://travis-ci.org/jayhealey/Robots)
 
 The original Robots class was written by *dragonfire1119* of TutsGlobal.com: <http://tutsglobal.com/topic/15-how-to-make-a-robotstxt-in-laravel-4/>
 

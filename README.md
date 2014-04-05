@@ -1,9 +1,13 @@
-Robots.txt Generator for Laravel
+Robots.txt
 =========
 
 The original Robots class was written by *dragonfire1119* of TutsGlobal.com: <http://tutsglobal.com/topic/15-how-to-make-a-robotstxt-in-laravel-4/>
 
-It felt worth writing tests for and making it available for easy installation in Laravel projects.
+The class itself (`Robots.php`) will work on any PHP 5.3+ site. It could easily be modified for 5.2 by removing the namespace.
+
+This repository offers easy integration via Composer and includes service provider and a facade for Laravel 4+ alongside a set of PHPUnit tests.
+
+Checkout the `Robots.php` class for a full understanding of the functionality.
 
 ## Installation:
 
@@ -23,19 +27,39 @@ Or add the following to your `composer.json` in the `require` section and then r
         }
     }
 
-### Step 2. Setup
-
-Once installed you need to add the service provider. Add the following to the 'providers' section of the app config (usually `app/config/app.php`):
-
-    'Healey\Robots\RobotsServiceProvider',
+### Step 2. Usage
 
 You've now installed it!
 
 ## Usage:
 
+### PHP 5.3+
+
+Create a script, or however you wish to do it, and create a .htaccess redirect to point to it. The script would look something like:
+
+```
+    <?php
+    use Healey\Robots\Robots;
+
+    $robots = new Robots();
+    $robots->addUserAgent('*');
+    $robots->addSitemap('sitemap.xml');
+
+    header("HTTP/1.1 200 OK");
+    echo $robots->generate();
+```
+
+### Laravel
+
+for Laravel
+
+Once installed via Composer you need to add the service provider. Add the following to the 'providers' section of the app config (usually `app/config/app.php`):
+
+    'Healey\Robots\RobotsServiceProvider',
+
 The quickest way to use Robots is to just setup a callback-style route for `robots.txt` in your `/app/routes.php` file:
 
-    ```
+```
     <?php
 
     Route::get('robots.txt', function() {
@@ -55,7 +79,7 @@ The quickest way to use Robots is to just setup a callback-style route for `robo
 
         return $response;
     });
-    ```
+```
 
 And that's it! You can now show different robots.txt files on each environment without any additional code.
 

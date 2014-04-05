@@ -29,15 +29,10 @@ Or add the following to your `composer.json` in the `require` section and then r
 
 ### Step 2. Usage
 
-You've now installed it!
-
-## Usage:
-
-### PHP 5.3+
+#### PHP 5.3+
 
 Create a script, or however you wish to do it, and create a .htaccess redirect to point to it. The script would look something like:
 
-```
     <?php
     use Healey\Robots\Robots;
 
@@ -47,11 +42,8 @@ Create a script, or however you wish to do it, and create a .htaccess redirect t
 
     header("HTTP/1.1 200 OK");
     echo $robots->generate();
-```
 
-### Laravel
-
-for Laravel
+#### Laravel
 
 Once installed via Composer you need to add the service provider. Add the following to the 'providers' section of the app config (usually `app/config/app.php`):
 
@@ -59,7 +51,6 @@ Once installed via Composer you need to add the service provider. Add the follow
 
 The quickest way to use Robots is to just setup a callback-style route for `robots.txt` in your `/app/routes.php` file:
 
-```
     <?php
 
     Route::get('robots.txt', function() {
@@ -79,7 +70,6 @@ The quickest way to use Robots is to just setup a callback-style route for `robo
 
         return $response;
     });
-```
 
 And that's it! You can now show different robots.txt files on each environment without any additional code.
 

@@ -1,21 +1,21 @@
-Robots.txt Generator for Laravel applications
+Robots.txt Generator for Laravel
 =========
 
 The original Robots class was written by *dragonfire1119* of TutsGlobal.com: <http://tutsglobal.com/topic/15-how-to-make-a-robotstxt-in-laravel-4/>
 
-This repository acts as a simple way to install and deploy it with an example of how to use it.
+It felt worth writing tests for and making it available for easy installation in Laravel projects.
 
 ## Installation:
 
 ### Step 1. Downloading
 
-There are two ways to install this, as is usual with Composer packages.
+As is usual with Composer packages, there are two ways to install Robots:
 
- You can add class via Composer. Pick the "dev-master" as the version of the package.
+You can add class via Composer. Pick the "dev-master" as the version of the package.
 
-    `composer require healey/robots`
+    composer require healey/robots
 
-Or add the following to your `composer.json` in `require` and then run `composer update` to install it.
+Or add the following to your `composer.json` in the `require` section and then run `composer update` to install it.
 
     {
         "require": {
@@ -35,11 +35,13 @@ You've now installed it!
 
 The quickest way to use Robots is to just setup a callback-style route for `robots.txt` in your `/app/routes.php` file:
 
-    ```php
+    ```
+    <?php
+
     Route::get('robots.txt', function() {
 
         // If on the live server, serve a nice, welcoming robots.txt.
-        if (Config::get('app.production'))
+        if (app()->env === 'production')
         {
             Robots::addUserAgent('*');
             Robots::addSitemap('sitemap.xml');

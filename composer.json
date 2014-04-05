@@ -1,0 +1,20 @@
+{
+    "name": "healey/robots",
+    "description": "Robots.txt Generator for Laravel 4",
+    "authors": [
+        {
+            "name": "James Healey",
+            "email": "jayhealey@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "illuminate/support": "4.1.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Healey\\Robots": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}

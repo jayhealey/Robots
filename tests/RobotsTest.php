@@ -62,7 +62,6 @@ class RobotsTest extends PHPUnit_Framework_TestCase
         $this->assertContains("Disallow: $path", $robots->generate());
         foreach($paths as $path_test)
             $this->assertContains("Disallow: $path_test", $robots->generate());
-
     }
 
     public function testaddAllow()
@@ -88,38 +87,57 @@ class RobotsTest extends PHPUnit_Framework_TestCase
         foreach($paths as $path_test)
             $this->assertContains("Allow: $path_test", $robots->generate());
     }
-//
-//    protected function addRuleLine($directories, $rule)
-//    {
-//        foreach ((array) $directories as $directory) {
-//            $this->addLine("$rule: $directory");
-//        }
-//    }
-//
-//    public function testaddComment($comment)
-//    {
-//        $this->addLine("# $comment");
-//    }
-//
-//    public function testaddSpacer()
-//    {
-//        $this->addLine("");
-//    }
-//
-//    public function testaddLine($line)
-//    {
-//        $this->lines[] = (string) $line;
-//    }
-//
-//    public function testaddLines($lines)
-//    {
-//        foreach ((array) $lines as $line) {
-//            $this->addLine($line);
-//        }
-//    }
-//
-//    public function testreset()
-//    {
-//        $this->lines = array();
-//    }
+
+    public function testaddComment()
+    {
+        $robots    = new Robots();
+        $comment_1 = "Test comment";
+        $comment_2 = "Another comment";
+        $comment_3 = "Final test comment";
+
+        $this->assertNotContains("# $comment_1", $robots->generate());
+        $this->assertNotContains("# $comment_2", $robots->generate());
+        $this->assertNotContains("# $comment_3", $robots->generate());
+
+        $robots->addComment($comment_1);
+        $this->assertContains("# $comment_1", $robots->generate());
+
+        $robots->addComment($comment_2);
+        $this->assertContains("# $comment_1", $robots->generate());
+        $this->assertContains("# $comment_2", $robots->generate());
+
+        $robots->addComment($comment_3);
+        $this->assertContains("# $comment_1", $robots->generate());
+        $this->assertContains("# $comment_2", $robots->generate());
+        $this->assertContains("# $comment_3", $robots->generate());
+    }
+
+    public function testaddSpacer()
+    {
+        $robots = new Robots();
+
+        $lines  = count(preg_split('/'. PHP_EOL .'/', $robots->generate()));
+        $this->assertEquals(1, $lines); // Starts off with at least one line.
+
+        $robots->addSpacer();
+        $robots->addSpacer();
+        $lines = count(preg_split('/'. PHP_EOL .'/', $robots->generate()));
+
+        $this->assertEquals(2, $lines);
+    }
+
+    public function testReset()
+    {
+        $robots = new Robots();
+
+        $this->assertEquals("", $robots->generate());
+
+        $robots->addComment("First Comment");
+        $robots->addHost("www.google.com");
+        $robots->addSitemap("sitemap.xml");
+        $this->assertNotEquals("", $robots->generate());
+
+        $robots->reset();
+        $this->assertEquals("", $robots->generate());
+    }
 }

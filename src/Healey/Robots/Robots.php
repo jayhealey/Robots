@@ -105,7 +105,7 @@ class Robots
      *
      * @param string $line
      */
-    public function addLine($line)
+    protected function addLine($line)
     {
         $this->lines[] = (string) $line;
     }
@@ -115,7 +115,7 @@ class Robots
      *
      * @param string|array $lines
      */
-    public function addLines($lines)
+    protected function addLines($lines)
     {
         foreach ((array) $lines as $line) {
             $this->addLine($line);

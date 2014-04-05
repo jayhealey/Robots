@@ -1,4 +1,4 @@
-Robots.txt
+Robots.txt Generator for Laravel
 =========
 
 The original Robots class was written by *dragonfire1119* of TutsGlobal.com: <http://tutsglobal.com/topic/15-how-to-make-a-robotstxt-in-laravel-4/>
@@ -13,9 +13,9 @@ Checkout the `Robots.php` class for a full understanding of the functionality.
 
 ### Step 1. Downloading
 
-As is usual with Composer packages, there are two ways to install Robots:
+As usual with Composer packages, there are two ways to install:
 
-You can add class via Composer. Pick the "dev-master" as the version of the package.
+You can install via Composer. Pick the "master" as the version of the package.
 
     composer require healey/robots
 
@@ -29,27 +29,15 @@ Or add the following to your `composer.json` in the `require` section and then r
 
 ### Step 2. Usage
 
-#### PHP 5.3+
-
-Create a script, or however you wish to do it, and create a .htaccess redirect to point to it. The script would look something like:
-
-    <?php
-    use Healey\Robots\Robots;
-
-    $robots = new Robots();
-    $robots->addUserAgent('*');
-    $robots->addSitemap('sitemap.xml');
-
-    header("HTTP/1.1 200 OK");
-    echo $robots->generate();
-
 #### Laravel
 
-Once installed via Composer you need to add the service provider. Add the following to the 'providers' section of the app config (usually `app/config/app.php`):
+Once installed via Composer you need to add the service provider. Do this by adding the following to the 'providers' section of the application config (usually `app/config/app.php`):
 
     'Healey\Robots\RobotsServiceProvider',
 
-The quickest way to use Robots is to just setup a callback-style route for `robots.txt` in your `/app/routes.php` file:
+Note that the facade allows you to use the class by simply calling `Robots::doSomething()`.
+
+The quickest way to use Robots is to just setup a callback-style route for `robots.txt` in your `/app/routes.php` file.
 
     <?php
 
@@ -71,7 +59,23 @@ The quickest way to use Robots is to just setup a callback-style route for `robo
         return $response;
     });
 
-And that's it! You can now show different robots.txt files on each environment without any additional code.
+#### PHP 5.3+
+
+Add a rule in your `.htaccess` for `robots.txt` that points to a new script/template/controller/route/etc.
+
+The code would look something like:
+
+    <?php
+    use Healey\Robots\Robots;
+
+    $robots = new Robots();
+    $robots->addUserAgent('*');
+    $robots->addSitemap('sitemap.xml');
+
+    header("HTTP/1.1 200 OK");
+    echo $robots->generate();
+
+And that's it! You can show different `robots.txt` files depending on how simple or complicated you want it to be.
 
 ## License
 

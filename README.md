@@ -22,11 +22,13 @@ You can install via Composer. Pick the "master" as the version of the package.
 
 Or add the following to your `composer.json` in the `require` section and then run `composer update` to install it.
 
-    {
-        "require": {
-            "healey/robots": "dev-master"
-        }
+```js
+{
+    "require": {
+        "healey/robots": "dev-master"
     }
+}
+```
 
 ### Step 2. Usage
 
@@ -34,31 +36,32 @@ Or add the following to your `composer.json` in the `require` section and then r
 
 Once installed via Composer you need to add the service provider. Do this by adding the following to the 'providers' section of the application config (usually `app/config/app.php`):
 
-    'Healey\Robots\RobotsServiceProvider',
+```php
+'Healey\Robots\RobotsServiceProvider',
+```
 
 Note that the facade allows you to use the class by simply calling `Robots::doSomething()`.
 
 The quickest way to use Robots is to just setup a callback-style route for `robots.txt` in your `/app/routes.php` file.
 
-    <?php
+```php
+<?php
 
-    Route::get('robots.txt', function() {
+Route::get('robots.txt', function() {
 
-        // If on the live server, serve a nice, welcoming robots.txt.
-        if (app()->env === 'production')
-        {
-            Robots::addUserAgent('*');
-            Robots::addSitemap('sitemap.xml');
-        } else {
-            // If you're on any other server, tell everyone to go away.
-            Robots::addDisallow('*');
-        }
+    // If on the live server, serve a nice, welcoming robots.txt.
+    if (App::environment() == 'production')
+    {
+        Robots::addUserAgent('*');
+        Robots::addSitemap('sitemap.xml');
+    } else {
+        // If you're on any other server, tell everyone to go away.
+        Robots::addDisallow('*');
+    }
 
-        $response = Response::make(Robots::generate(), 200);
-        $response->header('Content-Type', 'text/plain');
-
-        return $response;
-    });
+    return Response::make(Robots::generate(), 200, array('Content-Type' => 'text/plain'));
+});
+```
 
 #### PHP 5.3+
 
@@ -66,15 +69,17 @@ Add a rule in your `.htaccess` for `robots.txt` that points to a new script/temp
 
 The code would look something like:
 
-    <?php
-    use Healey\Robots\Robots;
+```php
+<?php
+use Healey\Robots\Robots;
 
-    $robots = new Robots();
-    $robots->addUserAgent('*');
-    $robots->addSitemap('sitemap.xml');
+$robots = new Robots();
+$robots->addUserAgent('*');
+$robots->addSitemap('sitemap.xml');
 
-    header("HTTP/1.1 200 OK");
-    echo $robots->generate();
+header("HTTP/1.1 200 OK");
+echo $robots->generate();
+```
 
 And that's it! You can show different `robots.txt` files depending on how simple or complicated you want it to be.
 

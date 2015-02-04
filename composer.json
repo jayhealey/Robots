@@ -16,5 +16,5 @@
             "Healey\\Robots": "src/"
         }
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "stable"
 }

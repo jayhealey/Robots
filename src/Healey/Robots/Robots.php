@@ -77,7 +77,8 @@ class Robots
      */
     protected function addRuleLine($directories, $rule)
     {
-        foreach ((array) $directories as $directory) {
+        foreach ((array) $directories as $directory)
+        {
             $this->addLine("$rule: $directory");
         }
     }
@@ -117,7 +118,8 @@ class Robots
      */
     protected function addLines($lines)
     {
-        foreach ((array) $lines as $line) {
+        foreach ((array) $lines as $line)
+        {
             $this->addLine($line);
         }
     }

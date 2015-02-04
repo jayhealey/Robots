@@ -53,7 +53,9 @@ class RobotsTest extends PHPUnit_Framework_TestCase
 
         // Test array of paths.
         foreach($paths as $path_test)
+        {
             $this->assertNotContains("Disallow: $path_test", $robots->generate());
+        }
 
         // Add the array of paths
         $robots->addDisallow($paths);
@@ -77,15 +79,20 @@ class RobotsTest extends PHPUnit_Framework_TestCase
 
         // Test array of paths.
         foreach($paths as $path_test)
+        {
             $this->assertNotContains("Allow: $path_test", $robots->generate());
+        }
 
         // Add the array of paths
         $robots->addAllow($paths);
 
         // Check the old path is still there
         $this->assertContains("Allow: $path", $robots->generate());
+
         foreach($paths as $path_test)
+        {
             $this->assertContains("Allow: $path_test", $robots->generate());
+        }
     }
 
     public function testaddComment()

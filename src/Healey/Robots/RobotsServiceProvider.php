@@ -18,7 +18,7 @@ class RobotsServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->package('healey/robots');
+    
     }
 
     /**
@@ -28,10 +28,9 @@ class RobotsServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app['robots'] = $this->app->share(function($app)
-        {
-            return new Robots();
-        });
+        $this->app->singleton('robots', function () {
+		    return new Robots();
+	    });
 
         $this->app->booting(function()
         {
